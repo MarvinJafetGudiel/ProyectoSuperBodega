@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SuperBodega.API/SuperBodega.API.csproj" />
+  <Project Path="SuperBodega.Domain/SuperBodega.Domain.csproj" />
+  <Project Path="SuperBodega.Infrastructure/SuperBodega.Infrastructure.csproj" />
+  <Project Path="SuperBodega.Web/SuperBodega.Web.csproj" />
+</Solution>
