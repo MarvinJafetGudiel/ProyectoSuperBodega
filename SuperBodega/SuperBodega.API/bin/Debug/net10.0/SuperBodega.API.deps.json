@@ -672,6 +672,8 @@
       },
       "SuperBodega.Infrastructure/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.7",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.1",
           "SuperBodega.Domain": "1.0.0"
         },
         "runtime": {

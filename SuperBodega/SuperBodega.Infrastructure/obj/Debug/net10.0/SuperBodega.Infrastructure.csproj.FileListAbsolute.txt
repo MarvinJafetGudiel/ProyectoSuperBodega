@@ -13,3 +13,6 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastr
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\obj\Debug\net10.0\refint\SuperBodega.Infrastructure.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\obj\Debug\net10.0\SuperBodega.Infrastructure.pdb
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\obj\Debug\net10.0\ref\SuperBodega.Infrastructure.dll
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\obj\Debug\net10.0\SuperBodega.Infrastructure.sourcelink.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\bin\Debug\net10.0\SuperBodega.Infrastructure.runtimeconfig.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Infrastructure\obj\Debug\net10.0\SuperBodega.Infrastructure.genruntimeconfig.cache

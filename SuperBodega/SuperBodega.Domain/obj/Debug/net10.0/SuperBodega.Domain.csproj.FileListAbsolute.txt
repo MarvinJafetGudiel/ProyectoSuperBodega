@@ -9,3 +9,4 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Domain\o
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Domain\obj\Debug\net10.0\refint\SuperBodega.Domain.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Domain\obj\Debug\net10.0\SuperBodega.Domain.pdb
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Domain\obj\Debug\net10.0\ref\SuperBodega.Domain.dll
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.Domain\obj\Debug\net10.0\SuperBodega.Domain.sourcelink.json
