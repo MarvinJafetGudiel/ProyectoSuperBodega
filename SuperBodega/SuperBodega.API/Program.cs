@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SuperBodega.Infrastructure.Datos;
 using System.Text.Json.Serialization;
 using SuperBodega.API.Mensajeria;
+using SuperBodega.API.Servicios;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -18,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<RabbitMQProductor>();
+builder.Services.AddSingleton<ServicioCorreo>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(

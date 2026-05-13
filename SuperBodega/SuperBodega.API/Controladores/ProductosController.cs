@@ -17,7 +17,6 @@ public class ProductosController : ControllerBase
         _contexto = contexto;
     }
 
-    // GET: api/productos
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Producto>>> ObtenerProductos()
     {
@@ -28,7 +27,6 @@ public class ProductosController : ControllerBase
         return Ok(productos);
     }
 
-    // GET: api/productos/1
     [HttpGet("{id}")]
     public async Task<ActionResult<Producto>> ObtenerProducto(int id)
     {
@@ -44,7 +42,7 @@ public class ProductosController : ControllerBase
         return Ok(producto);
     }
 
-    // POST: api/productos
+
     [HttpPost]
     public async Task<ActionResult> CrearProducto(ProductoDTO dto)
     {
@@ -72,7 +70,6 @@ public class ProductosController : ControllerBase
         return Ok(producto);
     }
 
-    // PUT: api/productos/1
     [HttpPut("{id}")]
     public async Task<ActionResult> ActualizarProducto(int id, ProductoDTO dto)
     {
@@ -94,7 +91,7 @@ public class ProductosController : ControllerBase
         return Ok(producto);
     }
 
-    // DELETE: api/productos/1
+
     [HttpDelete("{id}")]
     public async Task<ActionResult> EliminarProducto(int id)
     {

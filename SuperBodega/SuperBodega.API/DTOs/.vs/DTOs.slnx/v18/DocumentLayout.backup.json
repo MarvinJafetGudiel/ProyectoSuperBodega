@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ClienteDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ClienteDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\DetalleVentaDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DetalleVentaDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProductoDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProductoDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProveedorDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProveedorDTO.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\VentaDTO.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:VentaDTO.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VentaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\VentaDTO.cs",
+              "RelativeDocumentMoniker": "VentaDTO.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\VentaDTO.cs",
+              "RelativeToolTip": "VentaDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:31:06.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DetalleVentaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\DetalleVentaDTO.cs",
+              "RelativeDocumentMoniker": "DetalleVentaDTO.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\DetalleVentaDTO.cs",
+              "RelativeToolTip": "DetalleVentaDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:30:37.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProveedorDTO.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProveedorDTO.cs",
+              "RelativeDocumentMoniker": "ProveedorDTO.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProveedorDTO.cs",
+              "RelativeToolTip": "ProveedorDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:30:08.27Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClienteDTO.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ClienteDTO.cs",
+              "RelativeDocumentMoniker": "ClienteDTO.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ClienteDTO.cs",
+              "RelativeToolTip": "ClienteDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:29:35.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProductoDTO.cs",
+              "RelativeDocumentMoniker": "ProductoDTO.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\DTOs\\ProductoDTO.cs",
+              "RelativeToolTip": "ProductoDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:29:10.221Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

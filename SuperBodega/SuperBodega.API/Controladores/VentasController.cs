@@ -5,6 +5,8 @@ using SuperBodega.Domain.Entidades;
 using SuperBodega.Infrastructure.Datos;
 using SuperBodega.API.Mensajeria;
 using System.Text.Json;
+using System.Text.Json.Serialization; 
+using SuperBodega.API.Servicios;
 
 namespace SuperBodega.API.Controladores;
 
@@ -14,11 +16,16 @@ public class VentasController : ControllerBase
 {
     private readonly ApplicationDbContext _contexto;
     private readonly RabbitMQProductor _productor;
+    private readonly ServicioCorreo _correo;
 
-    public VentasController(ApplicationDbContext contexto, RabbitMQProductor productor)
+    public VentasController(
+        ApplicationDbContext contexto,
+        RabbitMQProductor productor,
+        ServicioCorreo correo)
     {
         _contexto = contexto;
         _productor = productor;
+        _correo = correo;
     }
 
     [HttpGet]
@@ -81,9 +88,27 @@ public class VentasController : ControllerBase
         _contexto.Ventas.Add(venta);
         await _contexto.SaveChangesAsync();
 
-        var mensaje = JsonSerializer.Serialize(venta);
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            WriteIndented = true
+        };
+
+        var mensaje = JsonSerializer.Serialize(venta, options);
 
         await _productor.Enviar(mensaje);
+
+        var cliente = await _contexto.Clientes
+            .FirstOrDefaultAsync(c => c.Id == dto.ClienteId);
+
+        if (cliente != null)
+        {
+            await _correo.EnviarCorreo(
+                cliente.Correo,
+                "Pedido recibido - SuperBodega",
+                $"Hola {cliente.Nombre}, tu pedido fue recibido correctamente."
+            );
+        }
 
         return Ok(new
         {

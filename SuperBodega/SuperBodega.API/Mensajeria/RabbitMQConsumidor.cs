@@ -25,7 +25,6 @@ public class RabbitMQConsumidor
             arguments: null
         );
 
-        // Se usa la versión Async del consumidor
         var consumer = new AsyncEventingBasicConsumer(channel);
 
         consumer.ReceivedAsync += async (sender, ea) =>
@@ -33,7 +32,7 @@ public class RabbitMQConsumidor
             var body = ea.Body.ToArray();
             var mensaje = Encoding.UTF8.GetString(body);
 
-            Console.WriteLine("🔥 MENSAJE RECIBIDO:");
+            Console.WriteLine("MENSAJE RECIBIDO:");
             Console.WriteLine(mensaje);
             await Task.CompletedTask;
         };

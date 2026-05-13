@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "VentasController.cs",
               "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\Controladores\\VentasController.cs",
               "RelativeToolTip": "VentasController.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFAAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T19:34:01.759Z",
               "EditorCaption": ""
@@ -47,8 +47,7 @@
               "RelativeToolTip": "ProveedoresController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAwwCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T19:33:29.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T19:33:29.786Z"
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "ClientesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T19:32:47.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T19:32:47.742Z"
             }
           ]
         }
