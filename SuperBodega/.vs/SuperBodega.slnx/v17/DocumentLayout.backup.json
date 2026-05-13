@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5ECCCB2B-D461-D2A7-101E-FD158D517B56}|SuperBodega.API\\SuperBodega.API.csproj|c:\\users\\hp\\documents\\proyecto final progra lll\\superbodega\\superbodega.api\\controladores\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ECCCB2B-D461-D2A7-101E-FD158D517B56}|SuperBodega.API\\SuperBodega.API.csproj|solutionrelative:superbodega.api\\controladores\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5ECCCB2B-D461-D2A7-101E-FD158D517B56}|SuperBodega.API\\SuperBodega.API.csproj|c:\\users\\hp\\documents\\proyecto final progra lll\\superbodega\\superbodega.api\\superbodega.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{5ECCCB2B-D461-D2A7-101E-FD158D517B56}|SuperBodega.API\\SuperBodega.API.csproj|solutionrelative:superbodega.api\\superbodega.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
@@ -19,6 +23,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "VentasController.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\Controladores\\VentasController.cs",
+              "RelativeDocumentMoniker": "SuperBodega.API\\Controladores\\VentasController.cs",
+              "ToolTip": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\Controladores\\VentasController.cs",
+              "RelativeToolTip": "SuperBodega.API\\Controladores\\VentasController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAcwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:43:50.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "SuperBodega.API.csproj",
               "DocumentMoniker": "C:\\Users\\HP\\Documents\\Proyecto Final progra lll\\SuperBodega\\SuperBodega.API\\SuperBodega.API.csproj",
               "RelativeDocumentMoniker": "SuperBodega.API\\SuperBodega.API.csproj",
@@ -26,8 +43,7 @@
               "RelativeToolTip": "SuperBodega.API\\SuperBodega.API.csproj",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-11T21:42:59.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T21:42:59.758Z"
             }
           ]
         }
