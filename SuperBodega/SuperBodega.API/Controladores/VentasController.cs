@@ -103,11 +103,14 @@ public class VentasController : ControllerBase
 
         if (cliente != null)
         {
+            /*
             await _correo.EnviarCorreo(
                 cliente.Correo,
                 "Pedido recibido - SuperBodega",
                 $"Hola {cliente.Nombre}, tu pedido fue recibido correctamente."
             );
+            */
+
         }
 
         return Ok(new
