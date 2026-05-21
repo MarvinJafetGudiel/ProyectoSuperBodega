@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SuperBodega.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0e1d446a7f437eb61420937ef39adbead06f6d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c542d69bc3e5459b3ccd69468156bbc46bc2d2d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("SuperBodega.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SuperBodega.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

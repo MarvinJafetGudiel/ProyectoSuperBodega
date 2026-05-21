@@ -166,7 +166,7 @@ namespace SuperBodega.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("numeric");

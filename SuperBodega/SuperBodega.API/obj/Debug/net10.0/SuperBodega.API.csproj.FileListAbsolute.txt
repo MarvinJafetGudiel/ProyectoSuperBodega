@@ -6,7 +6,9 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\SuperBodega.API.runtimeconfig.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\SuperBodega.API.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\SuperBodega.API.pdb
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\BouncyCastle.Cryptography.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Humanizer.dll
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\MailKit.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Build.Framework.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
@@ -22,6 +24,7 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.OpenApi.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.VisualStudio.SolutionPersistence.dll
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\MimeKit.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Mono.TextTemplating.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Newtonsoft.Json.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Npgsql.dll
@@ -113,6 +116,7 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.csproj.CoreCompileInputs.cache
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.sourcelink.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -128,7 +132,6 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.pdb
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.genruntimeconfig.cache
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\ref\SuperBodega.API.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.sourcelink.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -139,6 +142,3 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\BouncyCastle.Cryptography.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\MailKit.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\MimeKit.dll

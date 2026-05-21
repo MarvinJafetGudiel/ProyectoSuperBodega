@@ -1,0 +1,82 @@
+@model List<SuperBodega.Web.Modelos.CarritoItem>
+
+<h1 class="mb-4">
+    Carrito de Compras
+</h1>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["mensaje"]
+    </div>
+}
+
+<table class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Nombre</td>
+
+                <td>
+                    ₡ @item.Precio
+                </td>
+
+                <td>
+                    @item.Cantidad
+                </td>
+
+                <td>
+                    ₡ @(item.Precio * item.Cantidad)
+                </td>
+
+                <td>
+
+                    <a class="btn btn-danger"
+                       href="/Carrito/Eliminar?productoId=@item.ProductoId">
+
+                        Eliminar
+
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+<h3 class="mb-4">
+
+    Total:
+    ₡ @Model.Sum(x => x.Precio * x.Cantidad)
+
+</h3>
+
+<form method="post"
+      action="/Carrito/FinalizarCompra">
+
+    <button class="btn btn-success btn-lg">
+
+        Finalizar Compra
+
+    </button>
+
+</form>
