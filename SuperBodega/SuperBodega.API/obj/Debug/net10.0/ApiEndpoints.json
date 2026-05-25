@@ -207,6 +207,57 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SuperBodega.API.Controladores.ReportesController",
+    "Method": "VentasPorCliente",
+    "RelativePath": "api/Reportes/ventas-por-cliente",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SuperBodega.API.Controladores.ReportesController",
+    "Method": "VentasPorFecha",
+    "RelativePath": "api/Reportes/ventas-por-fecha",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fechaInicio",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "fechaFin",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SuperBodega.API.Controladores.ReportesController",
+    "Method": "VentasPorProducto",
+    "RelativePath": "api/Reportes/ventas-por-producto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SuperBodega.API.Controladores.ReportesController",
+    "Method": "VentasPorProveedor",
+    "RelativePath": "api/Reportes/ventas-por-proveedor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SuperBodega.API.Controladores.VentasController",
     "Method": "ObtenerVentas",
     "RelativePath": "api/Ventas",

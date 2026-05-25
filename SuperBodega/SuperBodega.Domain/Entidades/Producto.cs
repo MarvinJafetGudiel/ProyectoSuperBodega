@@ -15,4 +15,8 @@ public class Producto
     public int CategoriaId { get; set; }
 
     public Categoria? Categoria { get; set; }
+
+    public int ProveedorId { get; set; }
+
+    public Proveedor? Proveedor { get; set; }
 }

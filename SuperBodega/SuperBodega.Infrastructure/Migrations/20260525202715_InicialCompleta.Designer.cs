@@ -12,8 +12,8 @@ using SuperBodega.Infrastructure.Datos;
 namespace SuperBodega.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260519142050_AjusteProveedor")]
-    partial class AjusteProveedor
+    [Migration("20260525202715_InicialCompleta")]
+    partial class InicialCompleta
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,12 +118,17 @@ namespace SuperBodega.Infrastructure.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("ProveedorId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
+
+                    b.HasIndex("ProveedorId");
 
                     b.ToTable("Productos");
                 });
@@ -208,7 +213,15 @@ namespace SuperBodega.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SuperBodega.Domain.Entidades.Proveedor", "Proveedor")
+                        .WithMany("Productos")
+                        .HasForeignKey("ProveedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Categoria");
+
+                    b.Navigation("Proveedor");
                 });
 
             modelBuilder.Entity("SuperBodega.Domain.Entidades.Venta", b =>
@@ -223,6 +236,11 @@ namespace SuperBodega.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("SuperBodega.Domain.Entidades.Categoria", b =>
+                {
+                    b.Navigation("Productos");
+                });
+
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.Proveedor", b =>
                 {
                     b.Navigation("Productos");
                 });
