@@ -11,4 +11,6 @@ public class ProductoDTO
     public int Stock { get; set; }
 
     public int CategoriaId { get; set; }
+
+    public int ProveedorId { get; set; }
 }

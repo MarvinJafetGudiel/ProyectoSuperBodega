@@ -60,7 +60,8 @@ public class ProductosController : ControllerBase
             Descripcion = dto.Descripcion,
             Precio = dto.Precio,
             Stock = dto.Stock,
-            CategoriaId = dto.CategoriaId
+            CategoriaId = dto.CategoriaId,
+            ProveedorId = dto.ProveedorId
         };
 
         _contexto.Productos.Add(producto);
@@ -85,6 +86,7 @@ public class ProductosController : ControllerBase
         producto.Precio = dto.Precio;
         producto.Stock = dto.Stock;
         producto.CategoriaId = dto.CategoriaId;
+        producto.ProveedorId = dto.ProveedorId;
 
         await _contexto.SaveChangesAsync();
 

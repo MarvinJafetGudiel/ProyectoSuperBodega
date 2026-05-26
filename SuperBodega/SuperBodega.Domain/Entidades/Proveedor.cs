@@ -13,6 +13,8 @@ public class Proveedor
     public string Telefono { get; set; }
         = string.Empty;
 
+    public List<Compra>? Compras { get; set; }
+
     public ICollection<Producto>? Productos
     {
         get; set;

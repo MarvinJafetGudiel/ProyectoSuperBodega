@@ -10,7 +10,7 @@ public class RabbitMQProductor
     {
         var factory = new ConnectionFactory()
         {
-            HostName = "localhost"
+            HostName = "rabbitmq"
         };
 
         using var connection = await factory.CreateConnectionAsync();

@@ -22,4 +22,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Venta> Ventas => Set<Venta>();
 
     public DbSet<DetalleVenta> DetalleVentas => Set<DetalleVenta>();
+
+    public DbSet<Compra> Compras => Set<Compra>();
+
+    public DbSet<DetalleCompra> DetallesCompra => Set<DetalleCompra>();
 }

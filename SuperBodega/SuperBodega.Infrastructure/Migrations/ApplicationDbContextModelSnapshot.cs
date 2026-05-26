@@ -64,6 +64,59 @@ namespace SuperBodega.Infrastructure.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.Compra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("ProveedorId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProveedorId");
+
+                    b.ToTable("Compras");
+                });
+
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.DetalleCompra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CompraId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompraId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("DetallesCompra");
+                });
+
             modelBuilder.Entity("SuperBodega.Domain.Entidades.DetalleVenta", b =>
                 {
                     b.Property<int>("Id")
@@ -183,6 +236,36 @@ namespace SuperBodega.Infrastructure.Migrations
                     b.ToTable("Ventas");
                 });
 
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.Compra", b =>
+                {
+                    b.HasOne("SuperBodega.Domain.Entidades.Proveedor", "Proveedor")
+                        .WithMany("Compras")
+                        .HasForeignKey("ProveedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proveedor");
+                });
+
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.DetalleCompra", b =>
+                {
+                    b.HasOne("SuperBodega.Domain.Entidades.Compra", "Compra")
+                        .WithMany("Detalles")
+                        .HasForeignKey("CompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SuperBodega.Domain.Entidades.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Compra");
+
+                    b.Navigation("Producto");
+                });
+
             modelBuilder.Entity("SuperBodega.Domain.Entidades.DetalleVenta", b =>
                 {
                     b.HasOne("SuperBodega.Domain.Entidades.Producto", "Producto")
@@ -237,8 +320,15 @@ namespace SuperBodega.Infrastructure.Migrations
                     b.Navigation("Productos");
                 });
 
+            modelBuilder.Entity("SuperBodega.Domain.Entidades.Compra", b =>
+                {
+                    b.Navigation("Detalles");
+                });
+
             modelBuilder.Entity("SuperBodega.Domain.Entidades.Proveedor", b =>
                 {
+                    b.Navigation("Compras");
+
                     b.Navigation("Productos");
                 });
 

@@ -103,14 +103,17 @@ public class VentasController : ControllerBase
 
         if (cliente != null)
         {
-            
+            foreach (var detalle in venta.Detalles!)
+            {
+                detalle.Producto = await _contexto.Productos
+                    .FirstOrDefaultAsync(
+                        p => p.Id == detalle.ProductoId);
+            }
+
             await _correo.EnviarCorreo(
                 cliente.Correo,
-                "Pedido recibido - SuperBodega",
-                $"Hola {cliente.Nombre}, tu pedido fue recibido correctamente."
+                venta
             );
-            
-
         }
 
         return Ok(new

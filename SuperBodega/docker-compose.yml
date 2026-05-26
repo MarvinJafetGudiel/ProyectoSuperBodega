@@ -14,8 +14,8 @@ services:
     ports:
       - "5432:5432"
 
-    #volumes:
-    #  - postgres_data:/var/lib/postgresql/data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -25,6 +25,19 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  api:
+    build:
+      context: .
+      dockerfile: SuperBodega.API/Dockerfile
+
+    container_name: superbodega_api
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+      - rabbitmq
 
 volumes:
   postgres_data:

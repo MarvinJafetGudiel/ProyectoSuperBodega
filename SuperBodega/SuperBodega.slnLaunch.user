@@ -3,10 +3,6 @@
     "Name": "Nuevo perfil",
     "Projects": [
       {
-        "Path": "SuperBodega.API\\SuperBodega.API.csproj",
-        "Action": "Start"
-      },
-      {
         "Path": "SuperBodega.Web\\SuperBodega.Web.csproj",
         "Action": "Start"
       }

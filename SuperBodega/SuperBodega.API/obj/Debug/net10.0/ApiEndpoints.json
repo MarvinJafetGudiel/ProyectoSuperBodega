@@ -72,6 +72,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SuperBodega.API.Controladores.ComprasController",
+    "Method": "Obtener",
+    "RelativePath": "api/Compras",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SuperBodega.Domain.Entidades.Compra, SuperBodega.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SuperBodega.API.Controladores.ComprasController",
+    "Method": "Crear",
+    "RelativePath": "api/Compras",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SuperBodega.API.DTOs.CompraDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SuperBodega.API.Controladores.ProductosController",
     "Method": "ObtenerProductos",
     "RelativePath": "api/Productos",

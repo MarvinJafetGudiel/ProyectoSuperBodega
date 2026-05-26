@@ -1,0 +1,90 @@
+@model List<SuperBodega.Web.Modelos.ReporteProducto>
+
+<h1 class="mb-4">
+    Dashboard Administrativo
+</h1>
+
+<div class="row mb-5">
+
+    <div class="col-md-4">
+
+        <div class="card bg-primary text-white shadow">
+
+            <div class="card-body">
+
+                <h3>
+                    Productos Vendidos
+                </h3>
+
+                <h1>
+                    @Model.Sum(x => x.CantidadVendida)
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card bg-success text-white shadow">
+
+            <div class="card-body">
+
+                <h3>
+                    Ingresos Totales
+                </h3>
+
+                <h1>
+                    Q @Model.Sum(x => x.TotalGenerado)
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<canvas id="graficaVentas">
+</canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<script>
+
+    const etiquetas = [
+        @Html.Raw(string.Join(",",
+            Model.Select(x =>
+                $"'{x.Producto}'")))
+    ];
+
+    const cantidades = [
+        @string.Join(",",
+            Model.Select(x =>
+                x.CantidadVendida))
+    ];
+
+    new Chart(
+        document.getElementById('graficaVentas'),
+        {
+            type: 'bar',
+
+            data: {
+
+                labels: etiquetas,
+
+                datasets: [{
+
+                    label: 'Cantidad Vendida',
+
+                    data: cantidades
+
+                }]
+            }
+        });
+
+</script>

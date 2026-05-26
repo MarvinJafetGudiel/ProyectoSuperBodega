@@ -8,23 +8,25 @@ public class ProductosController : Controller
 {
     private readonly HttpClient _httpClient;
 
-    public ProductosController()
+    public ProductosController(HttpClient httpClient)
     {
-        _httpClient = new HttpClient();
-
-        _httpClient.BaseAddress =
-            new Uri("https://localhost:7230/");
+        _httpClient = httpClient;
     }
 
     public async Task<IActionResult> Index()
     {
-        var respuesta =
-            await _httpClient.GetAsync("api/productos");
+        var respuesta = await _httpClient.GetAsync("api/productos");
+
+    
+        if (!respuesta.IsSuccessStatusCode)
+        {
+            ModelState.AddModelError(string.Empty, "No se pudieron cargar los productos desde el servidor.");
+            return View(new List<Producto>());
+        }
 
         var json = await respuesta.Content.ReadAsStringAsync();
 
-        var productos =
-            JsonConvert.DeserializeObject<List<Producto>>(json);
+        var productos = JsonConvert.DeserializeObject<List<Producto>>(json);
 
         return View(productos);
     }

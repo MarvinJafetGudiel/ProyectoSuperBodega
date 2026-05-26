@@ -34,7 +34,7 @@
                 <td>@item.Nombre</td>
 
                 <td>
-                    ₡ @item.Precio
+                    Q @item.Precio
                 </td>
 
                 <td>
@@ -42,7 +42,7 @@
                 </td>
 
                 <td>
-                    ₡ @(item.Precio * item.Cantidad)
+                    Q @(item.Precio * item.Cantidad)
                 </td>
 
                 <td>
@@ -66,7 +66,7 @@
 <h3 class="mb-4">
 
     Total:
-    ₡ @Model.Sum(x => x.Precio * x.Cantidad)
+    Q @Model.Sum(x => x.Precio * x.Cantidad)
 
 </h3>
 

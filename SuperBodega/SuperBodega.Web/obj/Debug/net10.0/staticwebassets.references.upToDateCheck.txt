@@ -13,3 +13,15 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.build.json
