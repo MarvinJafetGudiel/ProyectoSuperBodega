@@ -2,25 +2,8 @@ version: '3.9'
 
 services:
 
-  postgres:
-    image: postgres:latest
-    container_name: superbodega_postgres
-
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: superbodega_db
-
-    ports:
-      - "5432:5432"
-
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: superbodega_rabbitmq
-
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -29,15 +12,21 @@ services:
     build:
       context: .
       dockerfile: SuperBodega.API/Dockerfile
-
-    container_name: superbodega_api
-
     ports:
       - "8080:8080"
-
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=zephyr.proxy.rlwy.net;Port=13390;Database=railway;Username=postgres;Password=hqbjYSWpeNVlbgaMvveMlltLCRfftIFn
+      - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
-      - postgres
       - rabbitmq
 
-volumes:
-  postgres_data:
+  web:
+    build:
+      context: .
+      dockerfile: SuperBodega.Web/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - api

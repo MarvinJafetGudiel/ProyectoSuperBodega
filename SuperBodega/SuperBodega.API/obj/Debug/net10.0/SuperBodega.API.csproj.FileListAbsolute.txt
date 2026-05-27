@@ -132,13 +132,3 @@ C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.pdb
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\SuperBodega.API.genruntimeconfig.cache
 C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\ref\SuperBodega.API.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Logging.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
-C:\Users\HP\Documents\Proyecto Final progra lll\SuperBodega\SuperBodega.API\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
