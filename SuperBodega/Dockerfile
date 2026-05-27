@@ -5,7 +5,7 @@ COPY SuperBodega.API/SuperBodega.API.csproj SuperBodega.API/
 
 RUN dotnet restore SuperBodega.API/SuperBodega.API.csproj
 
-COPY . .
+COPY . ./
 
 WORKDIR /src/SuperBodega.API
 RUN dotnet publish SuperBodega.API.csproj -c Release -o /app/publish
