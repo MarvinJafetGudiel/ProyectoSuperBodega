@@ -1,11 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY SuperBodega.API/SuperBodega.API.csproj SuperBodega.API/
+COPY SuperBodega.API/SuperBodega.API.csproj ./SuperBodega.API/
 
 RUN dotnet restore SuperBodega.API/SuperBodega.API.csproj
 
-COPY . ./
+COPY . /src/
 
 WORKDIR /src/SuperBodega.API
 RUN dotnet publish SuperBodega.API.csproj -c Release -o /app/publish
