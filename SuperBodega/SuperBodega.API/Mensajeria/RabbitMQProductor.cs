@@ -8,28 +8,28 @@ public class RabbitMQProductor
 {
     private readonly IConfiguration _configuration;
 
-    public RabbitMQProductor(
-        IConfiguration configuration)
+    public RabbitMQProductor(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
     public async Task Enviar(string mensaje)
     {
-        var hostName =
-            _configuration["RabbitMQ:HostName"]
-            ?? "localhost";
+        // Leemos las 3 variables desde la configuración de .NET o usamos valores locales por defecto
+        var hostName = _configuration["RabbitMQ:HostName"] ?? "localhost";
+        var userName = _configuration["RabbitMQ:UserName"] ?? "guest";
+        var password = _configuration["RabbitMQ:Password"] ?? "guest";
 
         var factory = new ConnectionFactory()
         {
-            HostName = hostName
+            HostName = hostName,
+            UserName = userName,
+            Password = password
         };
 
-        using var connection =
-            await factory.CreateConnectionAsync();
+        using var connection = await factory.CreateConnectionAsync();
 
-        using var channel =
-            await connection.CreateChannelAsync();
+        using var channel = await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
             queue: "ventas",
@@ -47,8 +47,6 @@ public class RabbitMQProductor
             body: body
         );
 
-        Console.WriteLine(
-            "Mensaje enviado a RabbitMQ"
-        );
+        Console.WriteLine("Mensaje enviado a RabbitMQ");
     }
 }
