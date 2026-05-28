@@ -12,6 +12,7 @@ AppContext.SetSwitch(
 var builder = WebApplication.CreateBuilder(args);
 
 
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -20,20 +21,22 @@ builder.Services.AddControllers()
     });
 
 
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 
+var connectionString =
+    Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    )
+    options.UseNpgsql(connectionString)
 );
 
 
-
 builder.Services.AddSingleton<RabbitMQProductor>();
-
 
 builder.Services.AddSingleton<ServicioCorreo>();
 
@@ -41,8 +44,21 @@ builder.Services.AddSingleton<ServicioCorreo>();
 var app = builder.Build();
 
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+
+    db.Database.Migrate();
+}
+
+
+
 app.UseSwagger();
+
 app.UseSwaggerUI();
+
 
 
 app.UseHttpsRedirection();
@@ -50,6 +66,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 
 var consumidor = new RabbitMQConsumidor(
@@ -65,10 +82,11 @@ Task.Run(async () =>
     catch (Exception ex)
     {
         Console.WriteLine(
-            $"Error en RabbitMQ Consumidor: {ex.Message}"
+            $"Error RabbitMQ: {ex.Message}"
         );
     }
 });
+
 
 
 app.Run();
