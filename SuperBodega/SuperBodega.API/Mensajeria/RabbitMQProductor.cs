@@ -1,20 +1,35 @@
 using RabbitMQ.Client;
+using Microsoft.Extensions.Configuration;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperBodega.API.Mensajeria;
 
 public class RabbitMQProductor
 {
+    private readonly IConfiguration _configuration;
+
+    public RabbitMQProductor(
+        IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public async Task Enviar(string mensaje)
     {
+        var hostName =
+            _configuration["RabbitMQ:HostName"]
+            ?? "localhost";
+
         var factory = new ConnectionFactory()
         {
-            HostName = "rabbitmq"
+            HostName = hostName
         };
 
-        using var connection = await factory.CreateConnectionAsync();
-        using var channel = await connection.CreateChannelAsync();
+        using var connection =
+            await factory.CreateConnectionAsync();
+
+        using var channel =
+            await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
             queue: "ventas",
@@ -32,6 +47,8 @@ public class RabbitMQProductor
             body: body
         );
 
-        Console.WriteLine("Mensaje enviado a RabbitMQ");
+        Console.WriteLine(
+            "Mensaje enviado a RabbitMQ"
+        );
     }
 }

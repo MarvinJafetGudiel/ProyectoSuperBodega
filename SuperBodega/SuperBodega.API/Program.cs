@@ -4,7 +4,10 @@ using System.Text.Json.Serialization;
 using SuperBodega.API.Mensajeria;
 using SuperBodega.API.Servicios;
 
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch(
+    "Npgsql.EnableLegacyTimestampBehavior",
+    true
+);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.ReferenceHandler =
+            ReferenceHandler.IgnoreCycles;
     });
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<RabbitMQProductor>();
-builder.Services.AddSingleton<ServicioCorreo>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
@@ -27,20 +30,33 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     )
 );
 
+
+
+builder.Services.AddSingleton<RabbitMQProductor>();
+
+
+builder.Services.AddSingleton<ServicioCorreo>();
+
+
 var app = builder.Build();
 
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
+
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 
-var consumidor = new RabbitMQConsumidor();
+var consumidor = new RabbitMQConsumidor(
+    builder.Configuration
+);
 
-_ = Task.Run(async () =>
+Task.Run(async () =>
 {
     try
     {
@@ -48,7 +64,9 @@ _ = Task.Run(async () =>
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Error en Consumidor: {ex.Message}");
+        Console.WriteLine(
+            $"Error en RabbitMQ Consumidor: {ex.Message}"
+        );
     }
 });
 
