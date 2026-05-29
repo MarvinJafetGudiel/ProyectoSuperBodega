@@ -96,7 +96,16 @@ public class VentasController : ControllerBase
 
         var mensaje = JsonSerializer.Serialize(venta, options);
 
-        await _productor.Enviar(mensaje);
+        try
+        {
+            await _productor.Enviar(mensaje);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                 $"Error enviando mensaje a RabbitMQ: {ex.Message}"
+            );
+        }
 
         var cliente = await _contexto.Clientes
             .FirstOrDefaultAsync(c => c.Id == dto.ClienteId);
