@@ -19,11 +19,11 @@ public class RabbitMQConsumidor
     public async Task Escuchar()
     {
         bool esRailway =
-         !string.IsNullOrEmpty(
-        Environment.GetEnvironmentVariable(
-            "RabbitMQ__HostName"
-        )
-    );
+            !string.IsNullOrWhiteSpace(
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__HostName"
+                )
+            );
 
         bool esDocker =
             Environment.GetEnvironmentVariable(
@@ -56,16 +56,22 @@ public class RabbitMQConsumidor
             hostName =
                 _configuration["RabbitMQ:DockerHost"]!;
 
-            userName = "guest";
-            password = "guest";
+            userName =
+                _configuration["RabbitMQ:UserName"]!;
+
+            password =
+                _configuration["RabbitMQ:Password"]!;
         }
         else
         {
             hostName =
                 _configuration["RabbitMQ:LocalHost"]!;
 
-            userName = "guest";
-            password = "guest";
+            userName =
+                _configuration["RabbitMQ:UserName"]!;
+
+            password =
+                _configuration["RabbitMQ:Password"]!;
         }
 
         var factory = new ConnectionFactory()
@@ -82,8 +88,8 @@ public class RabbitMQConsumidor
             await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
-            queue: "ventas",
-            durable: false,
+            queue: "ventas_durable",
+            durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null
@@ -107,7 +113,7 @@ public class RabbitMQConsumidor
         };
 
         await channel.BasicConsumeAsync(
-            queue: "ventas",
+            queue: "ventas_durable",
             autoAck: true,
             consumer: consumer
         );

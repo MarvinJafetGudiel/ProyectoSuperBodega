@@ -21,16 +21,13 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region DETECCIÓN AUTOMÁTICA DE ENTORNO
-
-string? connectionString;
-
-// Railway SIEMPRE tendrá DATABASE_URL
-var railwayDatabaseUrl =
-    Environment.GetEnvironmentVariable("DATABASE_URL");
+string? connectionString =
+    Environment.GetEnvironmentVariable(
+        "ConnectionStrings__DefaultConnection"
+    );
 
 bool esRailway =
-    !string.IsNullOrEmpty(railwayDatabaseUrl);
+    !string.IsNullOrWhiteSpace(connectionString);
 
 bool esDocker =
     Environment.GetEnvironmentVariable(
@@ -40,11 +37,6 @@ bool esDocker =
 if (esRailway)
 {
     Console.WriteLine("--> ENTORNO: RAILWAY");
-
-    connectionString =
-        Environment.GetEnvironmentVariable(
-            "ConnectionStrings__DefaultConnection"
-        );
 }
 else if (esDocker)
 {
@@ -69,26 +61,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
-#endregion
-
 builder.Services.AddSingleton<RabbitMQProductor>();
 builder.Services.AddSingleton<RabbitMQConsumidor>();
 builder.Services.AddSingleton<ServicioCorreo>();
 
 var app = builder.Build();
 
-#region MIGRACIONES AUTOMÁTICAS
-
 using (var scope = app.Services.CreateScope())
 {
     var db =
         scope.ServiceProvider
-        .GetRequiredService<ApplicationDbContext>();
+            .GetRequiredService<ApplicationDbContext>();
 
     int intentos = 0;
-    bool conectado = false;
 
-    while (intentos < 6 && !conectado)
+    while (intentos < 6)
     {
         try
         {
@@ -104,7 +91,7 @@ using (var scope = app.Services.CreateScope())
                 "--> Base de datos conectada correctamente."
             );
 
-            conectado = true;
+            break;
         }
         catch (Exception ex)
         {
@@ -117,18 +104,17 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-#endregion
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+if (!esRailway)
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-#region RABBITMQ
 
 var consumidor =
     app.Services.GetRequiredService<RabbitMQConsumidor>();
@@ -156,7 +142,5 @@ Task.Run(async () =>
         }
     }
 });
-
-#endregion
 
 app.Run();

@@ -18,11 +18,11 @@ public class RabbitMQProductor
     public async Task Enviar(string mensaje)
     {
         bool esRailway =
-    !string.IsNullOrEmpty(
-        Environment.GetEnvironmentVariable(
-            "RabbitMQ__HostName"
-        )
-    );
+            !string.IsNullOrWhiteSpace(
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__HostName"
+                )
+            );
 
         bool esDocker =
             Environment.GetEnvironmentVariable(
@@ -55,16 +55,22 @@ public class RabbitMQProductor
             hostName =
                 _configuration["RabbitMQ:DockerHost"]!;
 
-            userName = "guest";
-            password = "guest";
+            userName =
+                _configuration["RabbitMQ:UserName"]!;
+
+            password =
+                _configuration["RabbitMQ:Password"]!;
         }
         else
         {
             hostName =
                 _configuration["RabbitMQ:LocalHost"]!;
 
-            userName = "guest";
-            password = "guest";
+            userName =
+                _configuration["RabbitMQ:UserName"]!;
+
+            password =
+                _configuration["RabbitMQ:Password"]!;
         }
 
         var factory = new ConnectionFactory()
@@ -81,8 +87,8 @@ public class RabbitMQProductor
             await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
-            queue: "ventas",
-            durable: false,
+            queue: "ventas_durable",
+            durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null
@@ -93,7 +99,7 @@ public class RabbitMQProductor
 
         await channel.BasicPublishAsync(
             exchange: "",
-            routingKey: "ventas",
+            routingKey: "ventas_durable",
             body: body
         );
 
