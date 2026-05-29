@@ -20,8 +20,9 @@ public class RabbitMQConsumidor
 
     public async Task Escuchar()
     {
-        // Leemos las 3 variables desde la configuración de .NET o usamos valores locales por defecto
-        var hostName = _configuration?["RabbitMQ:HostName"] ?? "localhost";
+        bool esDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+        
+        var hostName = esDocker ? "rabbitmq" : (_configuration?["RabbitMQ:HostName"] ?? "localhost");
         var userName = _configuration?["RabbitMQ:UserName"] ?? "guest";
         var password = _configuration?["RabbitMQ:Password"] ?? "guest";
 
@@ -33,7 +34,6 @@ public class RabbitMQConsumidor
         };
 
         var connection = await factory.CreateConnectionAsync();
-
         var channel = await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
@@ -49,7 +49,6 @@ public class RabbitMQConsumidor
         consumer.ReceivedAsync += async (model, ea) =>
         {
             var body = ea.Body.ToArray();
-
             var mensaje = Encoding.UTF8.GetString(body);
 
             Console.WriteLine($"Mensaje recibido: {mensaje}");
@@ -63,7 +62,7 @@ public class RabbitMQConsumidor
             consumer: consumer
         );
 
-        Console.WriteLine("Consumidor RabbitMQ iniciado");
+        Console.WriteLine($"Consumidor RabbitMQ iniciado en el host: {hostName}");
 
         await Task.Delay(-1);
     }
