@@ -5,7 +5,7 @@ using SuperBodega.Domain.Entidades;
 using SuperBodega.Infrastructure.Datos;
 using SuperBodega.API.Mensajeria;
 using System.Text.Json;
-using System.Text.Json.Serialization; 
+using System.Text.Json.Serialization;
 using SuperBodega.API.Servicios;
 
 namespace SuperBodega.API.Controladores;
@@ -43,10 +43,10 @@ public class VentasController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CrearVenta(VentaDTO dto)
     {
-        var clienteExiste = await _contexto.Clientes
-            .AnyAsync(c => c.Id == dto.ClienteId);
+        var cliente = await _contexto.Clientes
+            .FirstOrDefaultAsync(c => c.Id == dto.ClienteId);
 
-        if (!clienteExiste)
+        if (cliente == null)
             return BadRequest("Cliente no existe");
 
         decimal total = 0;
@@ -68,6 +68,7 @@ public class VentasController : ControllerBase
             var detalle = new DetalleVenta
             {
                 ProductoId = producto.Id,
+                Producto = producto,
                 Cantidad = item.Cantidad,
                 PrecioUnitario = producto.Precio
             };
@@ -79,6 +80,7 @@ public class VentasController : ControllerBase
         var venta = new Venta
         {
             ClienteId = dto.ClienteId,
+            Cliente = cliente,
             Fecha = DateTime.UtcNow,
             Estado = "Recibido",
             Total = total,
@@ -96,35 +98,28 @@ public class VentasController : ControllerBase
 
         var mensaje = JsonSerializer.Serialize(venta, options);
 
-        try
+        _ = Task.Run(async () =>
         {
-            await _productor.Enviar(mensaje);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(
-                 $"Error enviando mensaje a RabbitMQ: {ex.Message}"
-            );
-        }
-
-        var cliente = await _contexto.Clientes
-            .FirstOrDefaultAsync(c => c.Id == dto.ClienteId);
-
-        if (cliente != null)
-        {
-            foreach (var detalle in venta.Detalles!)
-            {
-                detalle.Producto = await _contexto.Productos
-                    .FirstOrDefaultAsync(
-                        p => p.Id == detalle.ProductoId);
-            }
-
             try
             {
-             await _correo.EnviarCorreo(
-                cliente.Correo,
-                venta
-            );
+                await _productor.Enviar(mensaje);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(
+                    $"Error enviando mensaje a RabbitMQ: {ex.Message}"
+                );
+            }
+        });
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await _correo.EnviarCorreo(
+                    cliente.Correo,
+                    venta
+                );
             }
             catch (Exception ex)
             {
@@ -132,11 +127,11 @@ public class VentasController : ControllerBase
                     $"Error enviando correo: {ex.Message}"
                 );
             }
-        }
+        });
 
         return Ok(new
         {
-            mensaje = "Venta enviada a RabbitMQ",
+            mensaje = "Venta registrada correctamente",
             venta
         });
     }
