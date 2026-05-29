@@ -18,11 +18,11 @@ public class RabbitMQProductor
     public async Task Enviar(string mensaje)
     {
         bool esRailway =
-            !string.IsNullOrEmpty(
-                Environment.GetEnvironmentVariable(
-                    "RABBITMQ_URL"
-                )
-            );
+    !string.IsNullOrEmpty(
+        Environment.GetEnvironmentVariable(
+            "RabbitMQ__HostName"
+        )
+    );
 
         bool esDocker =
             Environment.GetEnvironmentVariable(

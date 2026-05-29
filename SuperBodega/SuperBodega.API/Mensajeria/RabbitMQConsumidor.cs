@@ -19,11 +19,11 @@ public class RabbitMQConsumidor
     public async Task Escuchar()
     {
         bool esRailway =
-            !string.IsNullOrEmpty(
-                Environment.GetEnvironmentVariable(
-                    "RABBITMQ_URL"
-                )
-            );
+         !string.IsNullOrEmpty(
+        Environment.GetEnvironmentVariable(
+            "RabbitMQ__HostName"
+        )
+    );
 
         bool esDocker =
             Environment.GetEnvironmentVariable(
