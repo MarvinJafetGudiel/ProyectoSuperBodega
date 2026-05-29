@@ -1,124 +1,125 @@
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
+using Microsoft.EntityFrameworkCore;
 using SuperBodega.Infrastructure.Datos;
 using System.Text.Json.Serialization;
 using SuperBodega.API.Mensajeria;
 using SuperBodega.API.Servicios;
 
-AppContext.SetSwitch(
-    "Npgsql.EnableLegacyTimestampBehavior",
-    true
-);
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler =
-            ReferenceHandler.IgnoreCycles;
-    });
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+string connectionString;
 
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+
+    connectionString = databaseUrl;
+    Console.WriteLine("--> [CONFIG] Postgres configurado usando la variable de entorno de Railway.");
+}
+else
+{
+
+    connectionString = builder.Configuration.GetConnectionString("LocalConnection") 
+                       ?? "Host=superbodega_postgres;Database=SuperBodegaDb;Username=postgres;Password=postgres";
+    Console.WriteLine("--> [CONFIG] Postgres configurado usando el entorno Local.");
+}
+
+var railwayRabbitUrl = Environment.GetEnvironmentVariable("RABBITMQ_URL");
+ConnectionFactory rabbitConnectionFactory;
+
+if (!string.IsNullOrEmpty(railwayRabbitUrl))
+{
+    rabbitConnectionFactory = new ConnectionFactory()
+    {
+        Uri = new Uri(railwayRabbitUrl),
+        DispatchConsumersAsync = true 
+    };
+    Console.WriteLine("--> [CONFIG] RabbitMQ configurado usando la URL de Railway.");
+}
+else
+{
+
+    rabbitConnectionFactory = new ConnectionFactory()
+    {
+        HostName = "superbodega_rabbitmq", 
+        UserName = "guest",
+        Password = "guest",
+        DispatchConsumersAsync = true
+    };
+    Console.WriteLine("--> [CONFIG] RabbitMQ configurado para el entorno Local (superbodega_rabbitmq).");
+}
+
+builder.Services.Singleton(rabbitConnectionFactory);
+
+
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region DETECCIÓN AUTOMÁTICA DE ENTORNOS (DOCKER / RAILWAY / LOCAL)
-
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-if (string.IsNullOrEmpty(connectionString))
-{
-
-    bool esDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
-
-    if (esDocker)
-    {
-        connectionString = builder.Configuration.GetConnectionString("DockerInternalConnection");
-    }
-    else
-    {
-
-        connectionString = builder.Configuration.GetConnectionString("LocalConnection");
-        
-    }
-
-    connectionString ??= "Host=localhost;Port=5432;Database=superbodega_db;Username=postgres;Password=postgres";
-}
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString)
-);
-
-#endregion
-
-builder.Services.AddSingleton<RabbitMQProductor>();
-builder.Services.AddSingleton<RabbitMQConsumidor>();
-builder.Services.AddSingleton<ServicioCorreo>();
-
 var app = builder.Build();
-
-#region MIGRACIONES AUTOMÁTICAS CON CONTROL DE RESILIENCIA (ESPERA A POSTGRES)
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    int intentosPostgres = 0;
-    bool migradoConExito = false;
+    var services = scope.ServiceProvider;
+    int maxRetries = 6;
+    int delaySeconds = 5;
 
-    while (intentosPostgres < 6 && !migradoConExito)
+    for (int retry = 1; retry <= maxRetries; retry++)
     {
         try
         {
-            intentosPostgres++;
-            db.Database.Migrate();
-            Console.WriteLine("--> [ÉXITO] Base de datos conectada y migraciones aplicadas.");
-            migradoConExito = true;
+            Console.WriteLine($"--> [DB] Verificando conexión a la base de datos... (Intento {retry}/{maxRetries})");
+            
+            Console.WriteLine("--> [DB] ¡Conexión a la base de datos exitosa!");
+            break; 
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"--> [ESPERA] Postgres no está listo aún (Intento {intentosPostgres}/6). Reintentando en 4 segundos...");
-            if (intentosPostgres >= 6)
+            if (retry == maxRetries)
             {
-                Console.WriteLine($"CRÍTICO: No se pudo conectar a la BD después de varios intentos: {ex.Message}");
+                Console.WriteLine("--> [ERROR FATAL] No se pudo conectar a la base de datos tras agotar los intentos.");
+                throw;
             }
-            else
+            Thread.Sleep(TimeSpan.FromSeconds(delaySeconds));
+        }
+    }
+
+    for (int retry = 1; retry <= maxRetries; retry++)
+    {
+        try
+        {
+            Console.WriteLine($"--> [ESPERA] Esperando que RabbitMQ esté listo... (Intento {retry}/{maxRetries})");
+            
+            using var testConnection = rabbitConnectionFactory.CreateConnection();
+            
+            Console.WriteLine("--> [ÉXITO] ¡Conexión establecida con RabbitMQ con éxito!");
+            break; 
+        }
+        catch (Exception ex)
+        {
+            if (retry == maxRetries)
             {
-                Thread.Sleep(4000); 
+                Console.WriteLine($"--> [ERROR FATAL] RabbitMQ no respondió después de {maxRetries} intentos. Deteniendo contenedor.");
+                throw;
             }
+            Thread.Sleep(TimeSpan.FromSeconds(delaySeconds));
         }
     }
 }
 
-#endregion
-
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyectoSuperBodega API V1");
+
+    c.RoutePrefix = string.Empty; 
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-#region INICIALIZACIÓN ASÍNCRONA DEL CONSUMIDOR RABBITMQ
-
-var consumidor = app.Services.GetRequiredService<RabbitMQConsumidor>();
-Task.Run(async () =>
-{
-    int intentosRabbit = 0;
-    while (intentosRabbit < 6)
-    {
-        try
-        {
-            await consumidor.Escuchar();
-            break;
-        }
-        catch
-        {
-            intentosRabbit++;
-            Console.WriteLine($"--> [ESPERA] Esperando que RabbitMQ esté listo... (Intento {intentosRabbit}/6)");
-            await Task.Delay(4000); 
-        }
-    }
-});
-
-#endregion
-
+Console.WriteLine("--> [APLICACIÓN] Iniciando Web API ProyectoSuperBodega...");
 app.Run();
