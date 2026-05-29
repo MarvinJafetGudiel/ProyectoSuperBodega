@@ -21,26 +21,48 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region DETECCIÓN AUTOMÁTICA DE ENTORNOS (DOCKER / RAILWAY / LOCAL)
+#region DETECCIÓN AUTOMÁTICA DE ENTORNO
 
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+string? connectionString;
 
-if (string.IsNullOrEmpty(connectionString))
+// Railway SIEMPRE tendrá DATABASE_URL
+var railwayDatabaseUrl =
+    Environment.GetEnvironmentVariable("DATABASE_URL");
+
+bool esRailway =
+    !string.IsNullOrEmpty(railwayDatabaseUrl);
+
+bool esDocker =
+    Environment.GetEnvironmentVariable(
+        "DOTNET_RUNNING_IN_CONTAINER"
+    ) == "true";
+
+if (esRailway)
 {
-    bool esDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+    Console.WriteLine("--> ENTORNO: RAILWAY");
 
-    if (esDocker)
-    {
-        connectionString = builder.Configuration.GetConnectionString("DockerInternalConnection");
-    }
-    else
-    {
-        connectionString = builder.Configuration.GetConnectionString("LocalConnection");
-        
-    }
+    connectionString =
+        Environment.GetEnvironmentVariable(
+            "ConnectionStrings__DefaultConnection"
+        );
+}
+else if (esDocker)
+{
+    Console.WriteLine("--> ENTORNO: DOCKER");
 
-   
-    connectionString ??= "Host=localhost;Port=5432;Database=superbodega_db;Username=postgres;Password=postgres";
+    connectionString =
+        builder.Configuration.GetConnectionString(
+            "DockerInternalConnection"
+        );
+}
+else
+{
+    Console.WriteLine("--> ENTORNO: LOCAL");
+
+    connectionString =
+        builder.Configuration.GetConnectionString(
+            "LocalConnection"
+        );
 }
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -55,34 +77,42 @@ builder.Services.AddSingleton<ServicioCorreo>();
 
 var app = builder.Build();
 
-#region MIGRACIONES AUTOMÁTICAS CON CONTROL DE RESILIENCIA (ESPERA A POSTGRES)
+#region MIGRACIONES AUTOMÁTICAS
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    int intentosPostgres = 0;
-    bool migradoConExito = false;
+    var db =
+        scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
 
-    while (intentosPostgres < 6 && !migradoConExito)
+    int intentos = 0;
+    bool conectado = false;
+
+    while (intentos < 6 && !conectado)
     {
         try
         {
-            intentosPostgres++;
+            intentos++;
+
+            Console.WriteLine(
+                $"--> Intentando conectar a PostgreSQL ({intentos}/6)"
+            );
+
             db.Database.Migrate();
-            Console.WriteLine("--> [ÉXITO] Base de datos conectada y migraciones aplicadas.");
-            migradoConExito = true;
+
+            Console.WriteLine(
+                "--> Base de datos conectada correctamente."
+            );
+
+            conectado = true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"--> [ESPERA] Postgres no está listo aún (Intento {intentosPostgres}/6). Reintentando en 4 segundos...");
-            if (intentosPostgres >= 6)
-            {
-                Console.WriteLine($"CRÍTICO: No se pudo conectar a la BD después de varios intentos: {ex.Message}");
-            }
-            else
-            {
-                Thread.Sleep(4000); 
-            }
+            Console.WriteLine(
+                $"--> Error PostgreSQL: {ex.Message}"
+            );
+
+            Thread.Sleep(5000);
         }
     }
 }
@@ -93,27 +123,36 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
-#region INICIALIZACIÓN ASÍNCRONA DEL CONSUMIDOR RABBITMQ
+#region RABBITMQ
 
-var consumidor = app.Services.GetRequiredService<RabbitMQConsumidor>();
+var consumidor =
+    app.Services.GetRequiredService<RabbitMQConsumidor>();
+
 Task.Run(async () =>
 {
-    int intentosRabbit = 0;
-    while (intentosRabbit < 6)
+    int intentos = 0;
+
+    while (intentos < 6)
     {
         try
         {
             await consumidor.Escuchar();
             break;
         }
-        catch
+        catch (Exception ex)
         {
-            intentosRabbit++;
-            Console.WriteLine($"--> [ESPERA] Esperando que RabbitMQ esté listo... (Intento {intentosRabbit}/6)");
-            await Task.Delay(4000);
+            intentos++;
+
+            Console.WriteLine(
+                $"--> RabbitMQ no listo: {ex.Message}"
+            );
+
+            await Task.Delay(5000);
         }
     }
 });

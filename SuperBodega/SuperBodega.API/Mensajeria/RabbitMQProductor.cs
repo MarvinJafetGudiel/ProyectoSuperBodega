@@ -8,18 +8,64 @@ public class RabbitMQProductor
 {
     private readonly IConfiguration _configuration;
 
-    public RabbitMQProductor(IConfiguration configuration)
+    public RabbitMQProductor(
+        IConfiguration configuration
+    )
     {
         _configuration = configuration;
     }
 
     public async Task Enviar(string mensaje)
     {
-        bool esDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+        bool esRailway =
+            !string.IsNullOrEmpty(
+                Environment.GetEnvironmentVariable(
+                    "RABBITMQ_URL"
+                )
+            );
 
-        var hostName = esDocker ? "rabbitmq" : (_configuration["RabbitMQ:HostName"] ?? "localhost");
-        var userName = _configuration["RabbitMQ:UserName"] ?? "guest";
-        var password = _configuration["RabbitMQ:Password"] ?? "guest";
+        bool esDocker =
+            Environment.GetEnvironmentVariable(
+                "DOTNET_RUNNING_IN_CONTAINER"
+            ) == "true";
+
+        string hostName;
+        string userName;
+        string password;
+
+        if (esRailway)
+        {
+            hostName =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__HostName"
+                )!;
+
+            userName =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__UserName"
+                )!;
+
+            password =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__Password"
+                )!;
+        }
+        else if (esDocker)
+        {
+            hostName =
+                _configuration["RabbitMQ:DockerHost"]!;
+
+            userName = "guest";
+            password = "guest";
+        }
+        else
+        {
+            hostName =
+                _configuration["RabbitMQ:LocalHost"]!;
+
+            userName = "guest";
+            password = "guest";
+        }
 
         var factory = new ConnectionFactory()
         {
@@ -28,8 +74,11 @@ public class RabbitMQProductor
             Password = password
         };
 
-        using var connection = await factory.CreateConnectionAsync();
-        using var channel = await connection.CreateChannelAsync();
+        using var connection =
+            await factory.CreateConnectionAsync();
+
+        using var channel =
+            await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
             queue: "ventas",
@@ -39,7 +88,8 @@ public class RabbitMQProductor
             arguments: null
         );
 
-        var body = Encoding.UTF8.GetBytes(mensaje);
+        var body =
+            Encoding.UTF8.GetBytes(mensaje);
 
         await channel.BasicPublishAsync(
             exchange: "",
@@ -47,6 +97,8 @@ public class RabbitMQProductor
             body: body
         );
 
-        Console.WriteLine($"Mensaje enviado a RabbitMQ ({hostName})");
+        Console.WriteLine(
+            $"Mensaje enviado a RabbitMQ ({hostName})"
+        );
     }
 }

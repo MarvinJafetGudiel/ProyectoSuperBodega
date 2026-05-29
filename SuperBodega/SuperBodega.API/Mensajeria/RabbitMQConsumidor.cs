@@ -7,24 +7,66 @@ namespace SuperBodega.API.Mensajeria;
 
 public class RabbitMQConsumidor
 {
-    private readonly IConfiguration? _configuration;
+    private readonly IConfiguration _configuration;
 
-    public RabbitMQConsumidor()
-    {
-    }
-
-    public RabbitMQConsumidor(IConfiguration configuration)
+    public RabbitMQConsumidor(
+        IConfiguration configuration
+    )
     {
         _configuration = configuration;
     }
 
     public async Task Escuchar()
     {
-        bool esDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
-        
-        var hostName = esDocker ? "rabbitmq" : (_configuration?["RabbitMQ:HostName"] ?? "localhost");
-        var userName = _configuration?["RabbitMQ:UserName"] ?? "guest";
-        var password = _configuration?["RabbitMQ:Password"] ?? "guest";
+        bool esRailway =
+            !string.IsNullOrEmpty(
+                Environment.GetEnvironmentVariable(
+                    "RABBITMQ_URL"
+                )
+            );
+
+        bool esDocker =
+            Environment.GetEnvironmentVariable(
+                "DOTNET_RUNNING_IN_CONTAINER"
+            ) == "true";
+
+        string hostName;
+        string userName;
+        string password;
+
+        if (esRailway)
+        {
+            hostName =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__HostName"
+                )!;
+
+            userName =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__UserName"
+                )!;
+
+            password =
+                Environment.GetEnvironmentVariable(
+                    "RabbitMQ__Password"
+                )!;
+        }
+        else if (esDocker)
+        {
+            hostName =
+                _configuration["RabbitMQ:DockerHost"]!;
+
+            userName = "guest";
+            password = "guest";
+        }
+        else
+        {
+            hostName =
+                _configuration["RabbitMQ:LocalHost"]!;
+
+            userName = "guest";
+            password = "guest";
+        }
 
         var factory = new ConnectionFactory()
         {
@@ -33,8 +75,11 @@ public class RabbitMQConsumidor
             Password = password
         };
 
-        var connection = await factory.CreateConnectionAsync();
-        var channel = await connection.CreateChannelAsync();
+        var connection =
+            await factory.CreateConnectionAsync();
+
+        var channel =
+            await connection.CreateChannelAsync();
 
         await channel.QueueDeclareAsync(
             queue: "ventas",
@@ -44,14 +89,19 @@ public class RabbitMQConsumidor
             arguments: null
         );
 
-        var consumer = new AsyncEventingBasicConsumer(channel);
+        var consumer =
+            new AsyncEventingBasicConsumer(channel);
 
         consumer.ReceivedAsync += async (model, ea) =>
         {
             var body = ea.Body.ToArray();
-            var mensaje = Encoding.UTF8.GetString(body);
 
-            Console.WriteLine($"Mensaje recibido: {mensaje}");
+            var mensaje =
+                Encoding.UTF8.GetString(body);
+
+            Console.WriteLine(
+                $"Mensaje recibido: {mensaje}"
+            );
 
             await Task.CompletedTask;
         };
@@ -62,7 +112,9 @@ public class RabbitMQConsumidor
             consumer: consumer
         );
 
-        Console.WriteLine($"Consumidor RabbitMQ iniciado en el host: {hostName}");
+        Console.WriteLine(
+            $"RabbitMQ conectado en: {hostName}"
+        );
 
         await Task.Delay(-1);
     }

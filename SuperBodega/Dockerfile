@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+
 WORKDIR /src
 
 COPY . .
@@ -8,6 +9,7 @@ RUN dotnet restore "SuperBodega.slnx"
 RUN dotnet publish "SuperBodega.API/SuperBodega.API.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
+
 WORKDIR /app
 
 COPY --from=build /app/publish .
