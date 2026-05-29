@@ -110,10 +110,19 @@ public class VentasController : ControllerBase
                         p => p.Id == detalle.ProductoId);
             }
 
-            await _correo.EnviarCorreo(
+            try
+            {
+             await _correo.EnviarCorreo(
                 cliente.Correo,
                 venta
             );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(
+                    $"Error enviando correo: {ex.Message}"
+                );
+            }
         }
 
         return Ok(new
